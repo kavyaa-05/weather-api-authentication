@@ -1,0 +1,18 @@
+<%- include("partials/header") %>
+<div class="card p-4 shadow" style="width:500px;">
+  <h3 class="text-center">Registered Users</h3>
+  <table class="table mt-3">
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+    </tr>
+    <% users.forEach(u => { %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= u.username %></td>
+      </tr>
+    <% }) %>
+  </table>
+  <a href="/dashboard" class="btn btn-primary">Back</a>
+</div>
+<%- include("partials/footer") %>

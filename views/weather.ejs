@@ -1,0 +1,67 @@
+<%- include("partials/header") %>
+<style>
+    .weather-card {
+        width: 400px;
+        border-radius: 20px;
+        backdrop-filter: blur(15px);
+        background: rgba(255, 255, 255, 0.2);
+    }
+    .weather-icon {
+        width: 100px;
+        animation: float 2s ease-in-out infinite;
+    }
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        5% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+    }
+    .sunny {
+       background: linear-gradient(to right, #fbc531, #f5af19); 
+    }
+    .cloudy {
+        background: linear-gradient(to right, #bdc3c7, #2c3e50);
+    }
+    .rainy {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+    }
+</style>
+<div class="weather-card p-4 text-center shadow">
+<h3 class="mb-3">🌤 Weather App</h3>
+<form method="POST">
+    <input
+      name="city"
+      class="form-control mb-3"
+      placeholder="Enter city name"
+      required
+    >
+    <button class="btn btn-light w-100">
+        Search
+    </button>
+</form>
+<% if(error){ %>
+  <p class="text-warning mt-3"><%= error %></p>
+<% } %>
+<% if(weather){ %>
+  <div class="mt-4">
+    <h4><%= weather.city %></h4>
+    <img
+      class="weather-icon"
+      src="http://openweathermap.org/img/wn/<%= weather.icon %>@2x.png"
+    >
+    <h2><%= weather.temp %>°C</h2>
+    <p><%= weather.condition %></p>
+  </div>
+  <script>
+    const condition = "<%= weather.condition %>".toLowerCase();
+    if(condition.includes("cloud")){
+        document.body.className = "cloudy";
+    } else if(condition.includes("rain")){
+        document.body.className = "rainy";
+    } else {
+        document.body.className = "sunny";
+    }
+  </script>
+<% } %>
+<a href="/dashboard" class="btn btn-dark mt-3">⬅ Back</a>
+</div>
+<%- include("partials/footer") %>
